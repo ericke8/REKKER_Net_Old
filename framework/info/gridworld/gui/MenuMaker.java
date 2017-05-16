@@ -89,6 +89,7 @@ public class MenuMaker<T>
         Class oldDcl = null;
         for (int i = 0; i < methods.length; i++)
         {
+            //if(methods[i].)){//TODO
             Class dcl = methods[i].getDeclaringClass();
             if (dcl != Object.class)
             {
