@@ -14,7 +14,7 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.actor;
+package info.gridworld.character;
 
 import info.gridworld.grid.Location;
 

@@ -14,14 +14,16 @@
  * @author Cay Horstmann
  */
 
+import java.awt.Color;
+import java.util.Scanner;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
+import info.gridworld.character.*;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
-
-import java.awt.Color;
-import java.util.*;
-
-import javax.swing.*;
 
 public class TileGame extends World<Tile> implements ChatDisplay
 {
@@ -193,7 +195,9 @@ public class TileGame extends World<Tile> implements ChatDisplay
    }
 
    public static void main( String[] args )
-   {
+   {CharacterWorld world = new CharacterWorld();
+   world.add(new Location(1,1), new UnitAssassin());
+   world.show();
       new TileGame().show();
    }
 }
