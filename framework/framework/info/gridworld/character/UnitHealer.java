@@ -1,9 +1,9 @@
 package info.gridworld.character;
 
-public class UnitRanged extends Character
+public class UnitHealer extends CharacterU
 {
 
-    public UnitRanged()
+    public UnitHealer()
     {
         // TODO Auto-generated constructor stub
         super();
@@ -15,6 +15,13 @@ public class UnitRanged extends Character
     {
         // TODO Auto-generated method stub
 
+    }
+
+
+    @Override
+    public String getUnitType()
+    {
+        return new String("Healer");
     }
 
 }
