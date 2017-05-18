@@ -12,6 +12,7 @@
  * 
  * @author Cay Horstmann
  */
+package framework;
 
 import java.awt.Color;
 

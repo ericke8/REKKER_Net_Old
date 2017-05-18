@@ -17,7 +17,7 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.grid;
+package framework.info.gridworld.grid;
 
 import java.util.ArrayList;
 

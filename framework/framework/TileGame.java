@@ -1,3 +1,4 @@
+package framework;
 
 /*
  * AP(r) Computer Science GridWorld Case Study: Copyright(c) 2005-2006 Cay S.

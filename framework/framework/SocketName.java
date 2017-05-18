@@ -1,3 +1,5 @@
+package framework;
+
 /**
  * SocketName encapsulates information about a socket connection so that
  * it can be easily displayed and used as a primary key in a hash map.

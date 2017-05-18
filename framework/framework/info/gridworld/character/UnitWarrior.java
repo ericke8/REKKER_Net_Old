@@ -1,4 +1,4 @@
-package info.gridworld.character;
+package framework.info.gridworld.character;
 
 public class UnitWarrior extends CharacterU
 {

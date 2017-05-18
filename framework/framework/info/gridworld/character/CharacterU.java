@@ -1,4 +1,4 @@
-package info.gridworld.character;
+package framework.info.gridworld.character;
 
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;

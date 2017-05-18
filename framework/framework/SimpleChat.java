@@ -1,3 +1,5 @@
+package framework;
+
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 

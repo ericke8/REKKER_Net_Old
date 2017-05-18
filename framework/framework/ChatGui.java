@@ -1,3 +1,5 @@
+package framework;
+
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 

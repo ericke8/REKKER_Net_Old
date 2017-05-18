@@ -1,3 +1,5 @@
+package framework;
+
 /**
  * Interface defining the callback methods that must be supported for the
  * socket threads to send data back to.  In the default implementation,

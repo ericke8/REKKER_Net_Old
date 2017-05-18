@@ -1,3 +1,5 @@
+package framework;
+
 
 /*
  * AP(r) Computer Science GridWorld Case Study: Copyright(c) 2005-2006 Cay S.
@@ -25,6 +27,8 @@ import java.awt.Color;
 import java.util.*;
 
 import javax.swing.*;
+
+import framework.info.gridworld.character.CharacterU;
 
 
 public class TestGame extends World implements ChatDisplay
