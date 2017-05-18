@@ -7,6 +7,12 @@ public class UnitVanguard extends CharacterU
     {
         // TODO Auto-generated constructor stub
         super();
+        
+        health = 50;
+        maxHealth = 50;
+        atk = 15;
+        def = 10;
+        range = 1;
     }
 
 
