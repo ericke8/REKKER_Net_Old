@@ -7,6 +7,12 @@ public class UnitWarrior extends CharacterU
     {
         // TODO Auto-generated constructor stub
         super();
+        
+        health = 30
+        maxHealth = 30
+        atk = 20
+        def = 10
+        range = 1;
     }
 
 
