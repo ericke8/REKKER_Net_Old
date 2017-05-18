@@ -1,6 +1,6 @@
 package framework.info.gridworld.character;
 
-import info.gridworld.grid.Location;
+import framework.info.gridworld.grid.Location;
 
 
 public class UnitAssassin extends CharacterU

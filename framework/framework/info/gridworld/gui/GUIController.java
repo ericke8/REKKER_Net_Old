@@ -15,11 +15,11 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.gui;
+package framework.info.gridworld.gui;
 
-import info.gridworld.character.CharacterU;
-import info.gridworld.grid.*;
-import info.gridworld.world.World;
+import framework.info.gridworld.character.CharacterU;
+import framework.info.gridworld.grid.*;
+import framework.info.gridworld.world.World;
 
 import java.awt.Dimension;
 import java.awt.Point;

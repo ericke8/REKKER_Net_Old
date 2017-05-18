@@ -15,9 +15,9 @@
 
 package framework.info.gridworld.character;
 
-import info.gridworld.grid.Grid;
-import info.gridworld.grid.Location;
-import info.gridworld.world.World;
+import framework.info.gridworld.grid.Grid;
+import framework.info.gridworld.grid.Location;
+import framework.info.gridworld.world.World;
 
 import java.util.ArrayList;
 

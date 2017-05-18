@@ -16,12 +16,12 @@ package framework;
  * @author Cay Horstmann
  */
 
-import info.gridworld.grid.Grid;
-import info.gridworld.grid.Location;
-import info.gridworld.world.World;
+import framework.info.gridworld.grid.Grid;
+import framework.info.gridworld.grid.Location;
+import framework.info.gridworld.world.World;
 
-import info.gridworld.character.*;
-import info.gridworld.gui.*;
+import framework.info.gridworld.character.*;
+import framework.info.gridworld.gui.*;
 
 import java.awt.Color;
 import java.util.*;

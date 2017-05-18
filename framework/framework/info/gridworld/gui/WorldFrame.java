@@ -17,12 +17,12 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.gui;
+package framework.info.gridworld.gui;
 
-import info.gridworld.character.CharacterU;
-import info.gridworld.grid.Grid;
-import info.gridworld.grid.Location;
-import info.gridworld.world.World;
+import framework.info.gridworld.character.CharacterU;
+import framework.info.gridworld.grid.Grid;
+import framework.info.gridworld.grid.Location;
+import framework.info.gridworld.world.World;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

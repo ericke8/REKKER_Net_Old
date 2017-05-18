@@ -16,7 +16,7 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.gui;
+package framework.info.gridworld.gui;
 
 import java.awt.Color;
 import java.awt.Component;

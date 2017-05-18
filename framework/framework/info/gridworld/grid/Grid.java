@@ -21,7 +21,7 @@ package framework.info.gridworld.grid;
 
 import java.util.ArrayList;
 
-import info.gridworld.character.CharacterU;
+import framework.info.gridworld.character.CharacterU;
 
 /**
  * <code>Grid</code> provides an interface for a two-dimensional, grid-like

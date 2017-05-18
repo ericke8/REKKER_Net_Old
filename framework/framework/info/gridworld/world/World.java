@@ -14,13 +14,13 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.world;
+package framework.info.gridworld.world;
 
-import info.gridworld.character.CharacterU;
-import info.gridworld.grid.BoundedGrid;
-import info.gridworld.grid.Grid;
-import info.gridworld.grid.Location;
-import info.gridworld.gui.WorldFrame;
+import framework.info.gridworld.character.CharacterU;
+import framework.info.gridworld.grid.BoundedGrid;
+import framework.info.gridworld.grid.Grid;
+import framework.info.gridworld.grid.Location;
+import framework.info.gridworld.gui.WorldFrame;
 
 import java.util.ArrayList;
 import java.util.Random;
