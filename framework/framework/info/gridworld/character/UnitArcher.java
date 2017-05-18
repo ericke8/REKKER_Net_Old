@@ -7,6 +7,11 @@ public class UnitArcher extends CharacterU
     {
         // TODO Auto-generated constructor stub
         super();
+        health = 15;
+        maxHealth = 15;
+        atk = 20;
+        def = 5;
+        range = 2;
     }
 
 

@@ -7,6 +7,11 @@ public class UnitHealer extends CharacterU
     {
         // TODO Auto-generated constructor stub
         super();
+        health = 15;
+        maxHealth = 15;
+        atk = 10;
+        def = 3;
+        range = 2;
     }
 
 
@@ -14,7 +19,7 @@ public class UnitHealer extends CharacterU
     public void attack()
     {
         // TODO Auto-generated method stub
-
+        
     }
 
 

@@ -10,10 +10,10 @@ public class UnitAssassin extends CharacterU
     {
         // TODO Auto-generated constructor stub
         super();
-        health = 30;
-        maxHealth = 30;
-        atk = 15;
-        def = 1;
+        health = 5;
+        maxHealth = 5;
+        atk = 30;
+        def = 5;
         range = 1;
     }
 
