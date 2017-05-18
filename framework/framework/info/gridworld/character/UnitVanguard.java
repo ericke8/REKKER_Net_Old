@@ -10,7 +10,7 @@ public class UnitVanguard extends CharacterU
         
         health = 50;
         maxHealth = 50;
-        atk = 15;
+        atk = 10;
         def = 10;
         range = 1;
     }
