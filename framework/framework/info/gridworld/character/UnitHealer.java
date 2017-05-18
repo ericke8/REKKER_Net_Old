@@ -9,7 +9,7 @@ public class UnitHealer extends CharacterU
         super();
         health = 15;
         maxHealth = 15;
-        atk = 10;
+        atk = 7;
         def = 3;
         range = 2;
     }
