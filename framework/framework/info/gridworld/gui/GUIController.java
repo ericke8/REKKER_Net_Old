@@ -20,6 +20,12 @@ package framework.info.gridworld.gui;
 import framework.info.gridworld.character.CharacterU;
 import framework.info.gridworld.grid.*;
 import framework.info.gridworld.world.World;
+import framework.info.gridworld.grid.Grid;
+import framework.info.gridworld.grid.Location;
+import framework.info.gridworld.gui.DisplayMap;
+import framework.info.gridworld.gui.GridPanel;
+import framework.info.gridworld.gui.MenuMaker;
+import framework.info.gridworld.gui.WorldFrame;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -55,7 +61,7 @@ public class GUIController
 
     private Timer timer;
 
-    private JButton attackerButton, targetButton, cancelButton;
+    private JButton moveButton, attackerButton, targetButton, cancelButton;
 
     private JButton newGameButton;
 
@@ -75,6 +81,9 @@ public class GUIController
 
     private CharacterU target;
 
+    private CharacterU mover;
+
+    private Location base;
     // private boolean running;
 
     private Set<Class> occupantClasses;
@@ -143,7 +152,7 @@ public class GUIController
                 }
             }
         } );
-        //stop();
+        // stop();
     }
 
 
@@ -159,8 +168,9 @@ public class GUIController
             targetButton.setEnabled( true );
             attacker = parentFrame.getWorld().getGrid().get( l );
             parentFrame.getWorld().setMessage( "Attacker Selected: Unit at " + l.toString() );
-            
-            //parentFrame.getWorld().setMessage( "Attacker Selected: Unit at " );
+
+            // parentFrame.getWorld().setMessage( "Attacker Selected: Unit at "
+            // );
         }
 
         // parentFrame.getWorld().attacker();
@@ -216,31 +226,48 @@ public class GUIController
     {
         if ( target != null && attacker != null )
         {
-            if ( Math.abs( target.getLocation().getRow() - attacker.getLocation().getRow() ) <= attacker.attackRange() )
+            if ( ( Math.abs( target.getLocation().getRow() - attacker.getLocation().getRow() ) <= attacker
+                .attackRange() )
+
+                && ( Math.abs( target.getLocation().getCol() - attacker.getLocation().getCol() ) <= attacker
+                    .attackRange() ) )
             {
-                if ( Math.abs( target.getLocation().getCol() - attacker.getLocation().getCol() ) <= attacker
-                    .attackRange() )
+                if ( attacker.getUnitType().equals( new String( "Healer" ) ) )
                 {
-                    if ( attacker.getUnitType().equals( new String( "Healer" ) ) )
-                    {
-                        target.healthAdjust( attacker.getAtk() );
-                        parentFrame.getWorld().setMessage(
-                            "Healer healed the" + target.getUnitType() + " for " + attacker.getAtk() + " health." );
-                        attacker=null;
-                        target=null;
-                        targetButton.setEnabled( false );
-                    }
-                    else if (  target.getDef() - attacker.getAtk() < 0 )
-                    {
-                        target.healthAdjust( target.getDef() - attacker.getAtk() );
-                        parentFrame.getWorld().setMessage( attacker.getUnitType() + " damaged the "
-                            + target.getUnitType() + " for " + (attacker.getAtk()-target.getDef()) + " damage." );
-                        attacker=null;
-                        target=null;
-                        targetButton.setEnabled( false );
-                    }
+                    target.healthAdjust( attacker.getAtk() );
+                    parentFrame.getWorld().setMessage(
+                        "Healer healed the " + target.getUnitType() + " for " + attacker.getAtk() + " health." );
                 }
+                else if ( target.getDef() - attacker.getAtk() < 0 )
+                {
+                    target.healthAdjust( target.getDef() - attacker.getAtk() );
+                    parentFrame.getWorld().setMessage( attacker.getUnitType() + " damaged the " + target.getUnitType()
+                        + " for " + ( attacker.getAtk() - target.getDef() ) + " damage." );
+                }
+                else
+                {
+                    parentFrame.getWorld().setMessage(
+                        attacker.getUnitType() + " damaged the " + target.getUnitType() + " for 0 damage." );
+                }
+                attacker = null;
+                target = null;
+                targetButton.setEnabled( false );
             }
+            else
+            {
+                attacker = null;
+                target = null;
+                targetButton.setEnabled( false );
+                parentFrame.getWorld().setMessage( "Out of Range." );
+            }
+        }
+        else
+        {
+            attacker = null;
+            target = null;
+            targetButton.setEnabled( false );
+            parentFrame.getWorld().setMessage( "Selection invalid." );
+            throw new IllegalArgumentException( "Selection invalid." );
         }
     }
 
@@ -250,13 +277,119 @@ public class GUIController
      */
     public void cancel()// TODO corresponds with end turn
     {
-//        display.setToolTipsEnabled( true );
-//        parentFrame.setRunMenuItemsEnabled( true );
-//        timer.stop();
-//        cancelButton.setEnabled( false );
-//        newGameButton.setEnabled( true );
-//        targetButton.setEnabled( false );
+        attacker = null;
+        target = null;
+        targetButton.setEnabled( false );
+        base = null;
+        parentFrame.getWorld().setMessage( new String( "Actions cancelled." ) );
+
+        // display.setToolTipsEnabled( true );
+        // parentFrame.setRunMenuItemsEnabled( true );
+        // timer.stop();
+        // cancelButton.setEnabled( false );
+        // newGameButton.setEnabled( true );
+        // targetButton.setEnabled( false );
         // attackerButton.setEnabled( false );
+    }
+
+
+    public void move()
+    {
+        Location l = display.getCurrentLocation();
+        if ( base != null )
+        {
+            if ( parentFrame.getWorld().getGrid().get( l ) == null )
+            {
+                if ( ( Math.abs( base.getRow() - l.getRow() ) <= 2 )
+
+                    && Math.abs( base.getCol() - l.getCol() ) <= 2 )
+                {
+                    CharacterU c = parentFrame.getWorld().getGrid().get( base );
+                    c.removeSelfFromGrid();
+                    c.putSelfInGrid( parentFrame.getWorld().getGrid(), l );
+                    parentFrame.repaint();
+                    base = null;
+                }
+                else
+                {
+                    parentFrame.getWorld().setMessage( new String( "Selection outside of movement range." ) );
+                    base = null;
+                }
+            }
+            else
+            {
+                parentFrame.getWorld().setMessage( new String( "Destination already occupied." ) );
+                base = null;
+            }
+        }
+        else if ( parentFrame.getWorld().getGrid().get( l ) != null )
+        {
+            base = l;
+        }
+        // mover = parentFrame.getWorld().getGrid().get( l );
+        //
+        // if ( parentFrame.getWorld().getGrid().get( l ) != null )
+        // {
+        // // mover = parentFrame.getWorld().getGrid().get( l );
+        // display.addMouseListener( new MouseAdapter()
+        // {
+        // public void mousePressed( MouseEvent evt )
+        // {
+        // Location l = display.getCurrentLocation();
+        // Grid gr = parentFrame.getWorld().getGrid();
+        // Location loc = display.locationForPoint( evt.getPoint() );
+        // display.setCurrentLocation( loc );
+        // dest = loc;
+        // if ( loc != null && gr.isValid( loc ) )
+        // {
+        // display.setCurrentLocation( loc );
+        // Location l2 = display.getCurrentLocation();
+        // locationClicked();
+        // if ( Math.abs( l2.getRow() - l.getRow() ) <= 2 )
+        // {
+        // if ( Math.abs( l2.getCol() - l.getCol() ) <= 2 )
+        // {
+        // if ( parentFrame.getWorld().getGrid().get( l2 ) == null )
+        // {
+        // CharacterU c = parentFrame.getWorld().getGrid().get( l );
+        // //c.moveTo( l2 );// null pointer exception:
+        // // Exception in thread
+        // // "AWT-EventQueue-0"
+        // // parentFrame.getWorld().setMessage( new
+        // // String( l2 + "" + mover.getLocation() )
+        // // );
+        // }
+        // }
+        // }
+        // }
+        // }
+        // } );
+        // if ( gr == null )
+        // throw new IllegalStateException( "This character is not in a grid."
+        // );
+        // if ( gr.get( location ) != this )
+        // throw new IllegalStateException( "The grid contains a different
+        // character at location " + location + "." );
+        // if ( !gr.isValid( newLocation ) )
+        // throw new IllegalArgumentException( "Location " + newLocation + " is
+        // not valid." );
+        //
+        // if ( newLocation.equals( location ) )
+        // return newLocation;
+        // grid.remove( location );
+        // if ( grid.get( newLocation ) != null )
+        // {
+        // throw new IllegalArgumentException( "Location " + newLocation + " is
+        // not valid." );
+        // // CharacterU other = grid.get( newLocation );
+        // // if ( other != null )
+        // // other.removeSelfFromGrid();
+        // }
+        // location = newLocation;
+        // grid.put( location, this );
+        // parentFrame.getWorld().setMessage( new String( dest + "" ));
+        // }
+
     }
 
 
@@ -277,9 +410,10 @@ public class GUIController
     private void makeControls()
     {
         controlPanel = new JPanel();
+        moveButton = new JButton( new String( "Move" ) );
         attackerButton = new JButton( new String( "Attacker" ) );
         targetButton = new JButton( new String( "Target" ) );
-        cancelButton = new JButton( new String( "End Turn" ) );
+        cancelButton = new JButton( new String( "Cancel" ) );
         newGameButton = new JButton( new String( "New Game" ) );
 
         controlPanel.setLayout( new BoxLayout( controlPanel, BoxLayout.X_AXIS ) );
@@ -290,6 +424,8 @@ public class GUIController
 
         controlPanel.add( Box.createRigidArea( spacer ) );
 
+        controlPanel.add( moveButton );
+        controlPanel.add( Box.createRigidArea( spacer ) );
         controlPanel.add( attackerButton );
         controlPanel.add( Box.createRigidArea( spacer ) );
         controlPanel.add( targetButton );
@@ -297,6 +433,7 @@ public class GUIController
         controlPanel.add( cancelButton );
         controlPanel.add( Box.createRigidArea( largeSpacer ) );
         controlPanel.add( newGameButton );
+        moveButton.setEnabled( true );
         newGameButton.setEnabled( false );
         targetButton.setEnabled( false );
         attackerButton.setEnabled( true );
@@ -325,6 +462,13 @@ public class GUIController
         // controlPanel.add(new JLabel(resources.getString("slider.gui.fast")));
         // controlPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 
+        moveButton.addActionListener( new ActionListener()
+        {
+            public void actionPerformed( ActionEvent e )
+            {
+                move();// TODO unit selection and stuff
+            }
+        } );
         attackerButton.addActionListener( new ActionListener()
         {
             public void actionPerformed( ActionEvent e )
